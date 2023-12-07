@@ -4,16 +4,13 @@ using GAlpha.Base;
 namespace GAlpha.GA;
 
 public class BasicScissor : Scissor {
-    public override void Crossover(GeneArray A, GeneArray B) {
+    public override void Crossover(ref GeneArray A, ref GeneArray B) {
         int minCount = Math.Min(A.Count, B.Count);
-        int pivot = CryptoRandom.Instance.Next(0, minCount);
-        
-        B.Genes.AddRange(A.Genes.Skip(pivot));
-        A.Genes.AddRange(B.Genes.Take(pivot));
 
-        B.Genes.RemoveRange(0, pivot);
-        A.Genes.RemoveRange(pivot + 1, A.Count - pivot);
-
-        // TODO: 테스트 할것
+        for (int index = 0; index < minCount; ++index) {
+            if (CryptoRandom.Instance.NextDouble() > 0.5) {
+                (A.Genes[index], B.Genes[index]) = (B.Genes[index], A.Genes[index]);
+            }
+        }
     }
 }

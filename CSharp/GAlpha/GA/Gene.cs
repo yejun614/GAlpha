@@ -10,10 +10,22 @@ public class Gene {
     }
 
     public Gene() {
-        Mutation();
+        Data = 0;
     }
 
     public void Mutation() {
         Data = CryptoRandom.Instance.Next();
+    }
+
+    public void Mutation(int minValue) {
+        Data = CryptoRandom.Instance.Next(minValue);
+    }
+
+    public void Mutation(int minValue, int maxValue) {
+        Data = CryptoRandom.Instance.Next(minValue, maxValue);
+    }
+
+    public override string ToString() {
+        return $"{Data}";
     }
 }
